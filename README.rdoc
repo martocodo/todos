@@ -1,0 +1,1 @@
+Example Rails App to create and manage simple TODO tasks on a list
