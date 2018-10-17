@@ -1,0 +1,492 @@
+/*
+ *
+ *= require_tree .
+ *= require_self
+ */
+ /* http://meyerweb.com/eric/tools/css/reset/ 
+   v2.0 | 20110126
+   License: none (public domain)
+*/
+a,abbr,acronym,address,applet,article,aside,audio,b,big,blockquote,body,canvas,caption,center,cite,code,dd,del,details,dfn,div,dl,dt,em,embed,fieldset,figcaption,figure,footer,form,h1,h2,h3,h4,h5,h6,header,hgroup,html,i,iframe,img,ins,kbd,label,legend,li,mark,menu,nav,object,ol,output,p,pre,q,ruby,s,samp,section,small,span,strike,strong,sub,summary,sup,table,tbody,td,tfoot,th,thead,time,tr,tt,u,ul,var,video{margin:0;padding:0;border:0;font:inherit;vertical-align:baseline}article,aside,details,figcaption,figure,footer,header,hgroup,menu,nav,section{display:block}body{line-height:1}ol,ul{list-style:none}blockquote,q{quotes:none}blockquote:after,blockquote:before,q:after,q:before{content:'';content:none}table{border-collapse:collapse;border-spacing:0}
+/* Task List Custom CSS */
+/* Fonts */
+@import url('https://fonts.googleapis.com/css?family=Open+Sans');
+@import url('https://fonts.googleapis.com/css?family=Oswald');
+/* Standard DOM */
+html {
+	min-height: 100%;
+	width: 100%;
+}
+body {
+    background-image: none, linear-gradient(45deg, #726193 20%, #e37b7c 60%, #ffe4b4);
+    background-size: 128px 128px, auto;
+    min-height: 100%;
+    width: 100%;
+}
+* {
+	box-sizing: border-box;
+}
+/* Custom Classes */
+.contentWrapper {
+	display: inline-block;
+	background-color: rgba(255,255,255,0.9);
+	box-sizing: border-box;
+	padding: 20px;
+	margin: 20px 20px 0px 20px;
+	font-family: 'Open Sans', sans-serif;
+}
+.contentWrapper.fullWidth {
+	display: block;
+}
+/* Content Display */
+.tasksBlock {
+	clear: both;
+	display: none;
+	margin: 20px 0px 0px 0px;
+}
+/* Task Item Stylings */
+.taskBlock {
+	display: block;
+	margin: 0px 0px 0px 0px;
+	position: relative;
+	border-top: 1px solid #FFF;
+	border-bottom: 1px solid #CACACA;
+	overflow: hidden;
+}
+input, select {
+	padding: 6px;
+	font-size: 12pt;
+	border-radius: 4px;
+	font-family: 'Oswald', sans-serif;
+	font-weight: lighter;
+	border: 2px solid #cacaca;
+ -webkit-transition : border 500ms ease-out;
+  -moz-transition : border 500ms ease-out;
+  -o-transition : border 500ms ease-out;
+  transition : border 500ms ease-out;
+}
+.taskBlock label {
+	font-family: 'Oswald', sans-serif;
+	font-weight: lighter;
+	font-size: 10pt;
+}
+.textOverdue {
+	display: none;
+}
+.taskOverdue .textOverdue {
+	display: inline;
+}
+.taskOverdue .textNotYetDue {
+	display: none;
+}
+.taskOutlineBlock {
+	margin-bottom: 10px;
+}
+.timeTakenBlock {
+	display: none;
+	margin-bottom: 10px;
+}
+.dueDateBlock {
+	font-family: 'Oswald', sans-serif;
+	font-weight: bold;
+	font-size: 10pt;
+}
+.preSelectMessage {
+
+}
+.postSelectMessage {
+	display: none;
+}
+.taskId {
+	width: calc(100% - 70px);
+}
+/* Delete Control */
+.deleteConfirmBlock {
+ 	position: absolute;
+ 	top: 0px;
+ 	right: -50px;
+ 	width: 50px;
+ 	height: 100%;
+ 	background-color: #CACACA;
+ 	-webkit-transition : right 150ms ease-out;
+    -moz-transition : right 150ms ease-out;
+    -o-transition : right 150ms ease-out;
+    transition : right 150ms ease-out;
+    cursor: pointer;
+}
+.deleteConfirmBlock.open {
+	right: 0px;
+}
+.deleteConfirmBlock label {
+    font-family: 'Oswald', sans-serif;
+	font-weight: normal;
+	font-size: 10pt;
+	color: #333;
+	width: 100%;
+	text-align: center;
+	display: block;
+	margin: 10px 0px 0px 0px;
+}
+.btnTaskDelete {
+	background-color: transparent;
+	width: 20px;
+	height: 20px;
+	line-height: 20px;
+	border-radius: 2px;
+	float: right;
+	text-align: center;
+	cursor: pointer;
+	margin: 0px 6px 0px 0px;
+}
+.btnTaskDelete i {
+	color: #999999;
+	font-size: 14pt;
+}
+.btnDeleteAction {
+	width: 30px;
+	height: 30px;
+	display: inline-block;
+	clear: both;
+	line-height: 30px;
+	margin: 10px 10px 0px 10px;	
+	text-align: center;
+	border-radius: 4px;
+}
+.btnDeleteAction i {
+	color: #FFF;
+}
+.btnDeleteConfirm {
+	background-color: #09ad7e;
+}
+.btnDeleteCancel {
+	background-color: #990000;
+}
+/* Status of tasks visible display */
+.taskComplete {
+	background-color: #aace98;
+}
+.taskOverdue {
+	background-color: #f58b8b;
+	border: 1px solid #900;
+}
+.taskOnTime {
+}
+.taskOverdue p, .taskOverdue label, .taskOverdue strong {
+	color: #000;
+}
+.taskOverdue .dueDateBlock span {
+	color: #900;
+}
+.taskOverdue .btnTaskDelete i, .taskComplete .btnTaskDelete i {
+	color: #FFF;
+}
+/* Adding Task Form Styles */
+#addNewTaskBlock {
+	float: left;
+	width: 100%;
+	font-size: 10pt;
+	font-family: 'Oswald', sans-serif;
+	font-size: 10pt;
+	margin-top: 10px;
+}
+#addNewTaskBlock form, #addNewTaskBlock input, #addNewTaskBlock select {
+	width: 100%;
+	font-size: 10pt;
+	font-weight: lighter;
+}
+#addNewTaskBlock form button {
+	background-color: #0083de;
+	color: #FFF;
+	font-family: 'Oswald', sans-serif;
+	font-size: 10pt;
+	padding: 3px 8px 3px 8px;
+	margin: 4px 0px 0px 0px;
+	border-radius: 4px;
+	border: 1px solid #0083de;
+	clear: both;
+	float: left;
+	cursor: pointer;
+}
+ #addNewTaskBlock input, #addNewTaskBlock select {
+ 	margin: 4px 0px 6px 0px;
+ 	height: 36px;
+ }
+ #addNewTaskBlock .addTaskCategoryBlock, #addNewTaskBlock .addTaskDueDateBlock {
+ 	width: 49%;
+ 	float: left;
+ }
+ #addNewTaskBlock .addTaskDueDateBlock {
+ 	margin-left: 2%;
+ }
+/* Welcome Area and User Selection */
+.appBlock {
+	margin: 0 auto;
+	max-width: 640px;
+	min-height: 200px;
+	margin-top: 20px;
+	margin-bottom: 20px;
+	border-radius: 10px;
+	border: 8px solid #FFF;
+	box-shadow: 0px 0px 6px #333;
+	box-sizing: border-box;
+}
+.appIcon {
+	width: 230px;
+	height: 230px;
+	background-color: rgba(255,255,255,0.1);
+	padding: 0px;
+	float: left;
+	box-sizing: border-box;
+	-webkit-transition : width 500ms ease-out;
+    -moz-transition : width 500ms ease-out;
+    -o-transition : width 500ms ease-out;
+    transition : width 500ms ease-out;
+}
+.appIcon i {
+	color: #FFF;
+	font-size: 172px;
+	line-height: 230px;
+	margin: 0px 0px 0px 0px;
+	width: 100%;
+	height: 100%;
+	text-align: center;
+}
+.userSelectBlock {
+	float: left;
+	color: #FFF;
+	font-family: 'Open Sans', sans-serif;
+	font-size: 18pt;
+	padding: 20px 20px 0px 20px;
+	margin-bottom: 20px;
+	width: calc(100% - 230px);
+	-webkit-transition : width 500ms ease-out;
+    -moz-transition : width 500ms ease-out;
+    -o-transition : width 500ms ease-out;
+    transition : width 500ms ease-out;
+}
+.userSelectBlock h1.appTitle {
+	text-transform: uppercase;
+	font-size: 16pt;
+	text-align: center;
+	font-family: 'Oswald', sans-serif;
+}
+.userSelectBlock p.appGreeting {
+	padding: 8px 0px 8px 0px;
+	margin: 6px 0px 10px 0px;
+	font-size: 10pt;
+	border-top: 1px solid #FFF;
+	border-bottom: 1px solid #FFF;
+	text-align: center;
+	font-family: 'Oswald', sans-serif;
+	font-weight: lighter;
+}
+.userSelectBlock select {
+	font-size: 12pt;
+	width: 100%;
+}
+/* Mobile classes */
+.smallDevice {
+	display: none;
+}
+/* Custom Checkbox Styling */
+p.checkboxBlock {
+	float: right;
+	margin: 0px 0px 0px 0px;
+}
+p.checkboxBlock label {
+	font-size: 10pt;
+	text-transform: uppercase;
+	font-family: 'Open Sans', sans-serif;
+	font-weight: bold;
+}
+/* Admin Stylings */
+a.btnAdminUserTasks {
+	background-color: #CACACA;
+	color: #333;
+	font-family: 'Oswald', sans-serif;
+	font-size: 10pt;
+	padding: 3px 8px 3px 8px;
+	margin: 4px 2px 0px 0px;
+	border-radius: 4px;
+	border: 1px solid #333;
+	float: left;
+	cursor: pointer;
+	text-decoration: none;
+	height: 36px;
+	line-height: 26px;
+}
+/* Form element icons */
+i.iconSaving {
+	position: absolute;
+	bottom: 2px;
+	right: 10px;
+	font-size: 14pt;
+	color: #CACACA;
+	opacity: 1;
+	-webkit-transition : all 300ms ease-out;
+    -moz-transition : all 300ms ease-out;
+    -o-transition : all 300ms ease-out;
+    transition : all 300ms ease-out;
+}
+#addNewTaskBlock div.inputWrapper i.fa {
+	bottom: 14px;
+}
+i.iconSaving.fa-save {
+	color: #09ad7e;
+}
+i.iconSaving.fa-mouse-pointer {
+	font-size: 12pt;
+	right: 16px;
+}
+/* Utility Classes */
+.buttonNeedHelp, .helpRequested {
+	background-color: #FFF;
+	color: #900;
+	font-family: 'Oswald', sans-serif;
+	font-size: 9pt;
+	line-height: 8pt;
+	padding: 3px 8px 3px 8px;
+	margin: 4px 0px 0px 10px;
+	border-radius: 4px;
+	border: 1px solid #900;
+	cursor: pointer;
+	text-decoration: none;
+	font-weight: lighter;
+}
+.buttonViewHelp {
+	float: right;
+	height: 26px;
+	line-height: 20px;
+}
+.helpRequested {
+	cursor: normal;
+}
+input.success, select.success {
+	border: 2px solid #09ad7e;
+}
+button#btnAddTask.success {
+	background-color: #09ad7e;
+	border-color: #09ad7e;
+}
+input.invalid, select.invalid {
+ 	border: 2px solid #900;
+}
+input.invalid + i.iconSaving, select.invalid + i.iconSaving {
+	color: #900;
+}
+ .hidden {
+ 	display: none;
+ }
+.clear {
+	clear: both;
+}
+.inputWrapper {
+	position: relative;
+}
+/* Media Queries */
+@media screen and (max-width: 520px) { 
+  	.appIcon {
+    	width: 150px;
+    	height: 150px;
+    }
+    .userSelectBlock {
+    	width: calc(100% - 150px);
+	}
+	.appIcon i {
+    	color: #FFF;
+    	font-size: 124px;
+    	line-height: 160px;
+	}
+}
+@media screen and (max-width: 440px) { 
+	.appIcon {
+		display: none;
+    	width: 64px;
+    	height: 64px;
+    }
+    .appIcon.smallDevice {
+    	display: block;
+    	width: 100%;
+    	margin-bottom: 10px;
+    }
+    .appIcon i {
+    	color: #FFF;
+    	font-size: 54px;
+    	line-height: 70px;
+	}
+	.userSelectBlock {
+    	width: 100%;
+    	margin-bottom: 20px;
+	}
+}
+/* CSS only custom checkbox styling method */
+/* https://codepen.io/CreativeJuiz/pen/BiHzp */
+
+/* Base for label styling */
+[type="checkbox"]:not(:checked),
+[type="checkbox"]:checked {
+  position: absolute;
+  left: -9999px;
+}
+[type="checkbox"]:not(:checked) + label,
+[type="checkbox"]:checked + label {
+  position: relative;
+  padding-left: 1.95em;
+  cursor: pointer;
+}
+
+/* checkbox aspect */
+[type="checkbox"]:not(:checked) + label:before,
+[type="checkbox"]:checked + label:before {
+  content: '';
+  position: absolute;
+  left: 0; top: 0;
+  width: 1.25em; height: 1.25em;
+  border: 2px solid #ccc;
+  background: #fff;
+  border-radius: 4px;
+  box-shadow: inset 0 1px 3px rgba(0,0,0,.1);
+}
+/* checked mark aspect */
+[type="checkbox"]:not(:checked) + label:after,
+[type="checkbox"]:checked + label:after {
+  content: '✔';
+  position: absolute;
+  top: .1em; left: .3em;
+  font-size: 1.3em;
+  line-height: 0.8;
+  color: #09ad7e;
+  transition: all .2s;
+}
+/* checked mark aspect changes */
+[type="checkbox"]:not(:checked) + label:after {
+  opacity: 0;
+  transform: scale(0);
+}
+[type="checkbox"]:checked + label:after {
+  opacity: 1;
+  transform: scale(1);
+}
+/* disabled checkbox */
+[type="checkbox"]:disabled:not(:checked) + label:before,
+[type="checkbox"]:disabled:checked + label:before {
+  box-shadow: none;
+  border-color: #bbb;
+  background-color: #ddd;
+}
+[type="checkbox"]:disabled:checked + label:after {
+  color: #999;
+}
+[type="checkbox"]:disabled + label {
+  color: #aaa;
+}
+/* accessibility */
+[type="checkbox"]:checked:focus + label:before,
+[type="checkbox"]:not(:checked):focus + label:before {
+  border: 2px dotted blue;
+}
+
+/* hover style just for information */
+label:hover:before {
+  border: 2px solid #4778d9!important;
+}

@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title><%= t('page_title_home') %></title>
+  <link href="https://code.jquery.com/ui/1.12.0/themes/smoothness/jquery-ui.css" rel="stylesheet">
+  <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
+  <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
+  <link href="https://opensource.keycdn.com/fontawesome/4.7.0/font-awesome.min.css" rel="stylesheet">
+  <%= csrf_meta_tags %>
+</head>
+<body>
+<div class="appBlock">
+
+	<div class="appIcon">
+		<i class="fa fa-pencil-square-o" aria-hidden="true"></i>
+	</div>
+
+	<div class="userSelectBlock">
+		<div class="appIcon smallDevice">
+			<i class="fa fa-pencil-square-o" aria-hidden="true"></i>
+		</div>
+		<h1 class="appTitle"><%= t('title_welcome') %></h1>
+		<p class="appGreeting"><span class="preSelectMessage"><%= t('p_greeting') %></span><span class="postSelectMessage"><%= t('label_tasks_for') %><strong data-bind="text: selectedUser"></strong></span></p>
+
+		<p class="userSelect"><select data-bind="selectUser: selectCurrentUser, options: $root.availableUsers, optionsCaption: 'Select...', optionsText: 'name', optionsValue: 'id', value: selectCurrentUser"></select></p>
+
+		<div id="addNewTaskBlock" class="hidden">
+			<form data-bind="submit: addTask">
+			    <h2><%= t('title_add_task') %></h2>
+			    <div class="inputWrapper">
+			    	<input id="addFieldTask" data-bind="value: newTaskText" placeholder="What needs to be done?" />
+			    	<i class="iconSaving fa fa-pencil"></i>
+			    </div>
+			    <div class="addTaskCategoryBlock">
+			    	<label><%= t('label_category') %></label>
+			    	<div class="inputWrapper">
+			    		<select id="addFieldCategory" data-bind="options: $root.availableCategories, optionsCaption: 'Select...', value: newTaskCategory, optionsText: 'name', optionsValue: 'id'"></select>
+			    		<i class="iconSaving fa fa-mouse-pointer"></i>
+			    	</div>
+			    </div>
+			    <div class="addTaskDueDateBlock">
+			    	<label><%= t('label_due') %></label>
+			    	<div class="inputWrapper">
+			    		<input id="addFieldDueDate" class="datePicker" data-bind="value: newTaskDueDate" />
+			    		<i class="iconSaving fa fa-pencil"></i>
+			    	</div>
+			    </div>
+			    <button id="btnAddTask" type="submit"><%= t('button_add') %> <i class="fa fa-plus"></i></button>
+			</form>
+		
+		</div>
+	</div>
+	<div class="clear"></div>
+
+	<div class="tasksBlock">		
+		<div data-bind="foreach: tasks(), taskState, visible: tasks().length > 0">
+		  <div class="contentWrapper taskBlock" data-bind="visible: created_by() == $parent.selectCurrentUser() ? true : false, css: taskState">
+
+		    <input type="hidden" data-bind="value: id" />
+		    <p class="checkboxBlock">
+				<input type="checkbox" data-bind="taskCompleted: task_completed, checked: task_completed" />
+				<label></label>
+			</p>
+			<div class="taskOutlineBlock">
+				<label><%= t('label_task_description') %></label>
+				<span class="inputWrapper">
+					<input class="taskId" data-bind="updateData: name, value: name" data-field="name" />
+					<i class="iconSaving fa fa-pencil"></i>
+				</span>
+			</div>
+			<div class="timeTakenBlock">
+				<label><%= t('label_how_long_did_it_take') %></label>
+				<span class="inputWrapper">
+					<input data-bind="updateData: time_taken, value: time_taken" data-field="time_taken" />
+					<i class="iconSaving fa fa-pencil"></i>
+				</span>
+			</div>
+
+			<div class="deleteConfirmBlock">
+				<label><%= t('label_delete_confirm') %></label>
+				<a class="btnDeleteAction btnDeleteConfirm" data-bind="click: $parent.removeTask"><i class="fa fa-check"></i></a>
+				<a class="btnDeleteAction btnDeleteCancel"><i class="fa fa-times"></i></a>
+			</div>
+			<a class="btnTaskDelete"><i class="fa fa-trash"></i></a>
+			<div class="dueDateBlock">
+				<label data-bind="visible: completion_date() ? false : true"><span class="textNotYetDue"><%= t('label_due') %></span><span class="textOverdue"><%= t('label_overdue') %></span>:</label>
+				<label data-bind="visible: completion_date() ? true : false"><%= t('label_date_completed') %>:</label>
+				<span data-bind="text: formatDueDate"></span>
+				<span class="textOverdue"><span data-bind="visible: helpflag() == true" class="helpRequested"><i class="fa fa-life-ring"></i> <%= t('button_requested_help') %></span><a class="buttonNeedHelp" data-field="helpflag" data-bind="requestHelp: helpflag, visible: helpflag() != true"><i class="fa fa-life-ring"></i> <%= t('button_need_help') %></a></span>
+			</div>
+		  </div>
+		</div>
+
+	</div>
+	<div class="clear"></div>
+</div>
+</body>
+</html>

@@ -1,0 +1,42 @@
+# Files in the config/locales directory are used for internationalization
+# and are automatically loaded by Rails. If you want to use locales other
+# than English, add the necessary files in this directory.
+#
+# To use the locales, use `I18n.t`:
+#
+#     I18n.t 'hello'
+#
+# In views, this is aliased to just `t`:
+#
+#     <%= t('hello') %>
+#
+# To use a different locale, set it with `I18n.locale`:
+#
+#     I18n.locale = :es
+#
+# This would use the information in config/locales/es.yml.
+#
+# To learn more, please read the Rails Internationalization guide
+# available at http://guides.rubyonrails.org/i18n.html.
+
+en:
+  # Page Titles
+  page_title_home: "Rocksteady Studios Task List"
+  # Buttons
+  button_add: "Add"
+  button_need_help: "Need Help?"
+  button_requested_help: "Help Request Sent"
+  button_view_help_requests: "View Help Requests"
+  # Labels
+  label_category: "Category"
+  label_due: "Due"
+  label_overdue: "Overdue"
+  label_date_completed: "Date Completed"
+  label_delete_confirm: "Sure?"
+  label_task_description: "Task"
+  label_how_long_did_it_take: "To complete, how many hours did this take? (e.g. 2.5)"
+  # Content Titles
+  title_add_task: "Add New Task"
+  title_welcome: "Welcome to Studio-To-Do"
+  p_greeting: "Please tell us who you are"
+  label_tasks_for: "Tasklist for "
